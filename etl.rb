@@ -4,11 +4,6 @@ end
 
 class ETL
   def self.transform(original)
-    original.map(&method(:assign_scores)).flatten(1).to_h
-  end
-
-  def self.assign_scores(items)
-    score, letters = items
-    letters.map { |letter| [letter.downcase, score] }
+    original.flat_map { |score, letters| letters.map { |letter| [letter.downcase, score] } }.to_h
   end
 end
